@@ -14,11 +14,16 @@
     This is a placeholder for base href that will be replaced by the value of
     the `--base-href` argument provided to `flutter build`.
   -->
-  <base href="./">
+  <base href="/">
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
   <meta name="description" content="A new Flutter project.">
+
+  <!-- 強制瀏覽器每次都跟伺服器檢查新版本，不使用舊快取 -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
 
   <!-- iOS meta tags & icons -->
   <meta name="mobile-web-app-capable" content="yes">
@@ -41,6 +46,12 @@
     For more details:
     * https://docs.flutter.dev/platform-integration/web/initialization
   -->
-  <script src="flutter_bootstrap.js" async></script>
+  <script>
+    // 在 flutter_bootstrap.js 後面加上時間戳記作為版本號，避免瀏覽器快取舊的引導腳本
+    var script = document.createElement('script');
+    script.src = "flutter_bootstrap.js?v=" + new Date().getTime();
+    script.async = true;
+    document.body.appendChild(script);
+  </script>
 </body>
 </html>
